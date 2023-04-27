@@ -26,6 +26,14 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            <select class="form-select mb-3" aria-label="Default select example" name="type">
+                <option value="" selected>Segli il tipo</option>
+                @foreach($types as $type)
+
+                <option value="{{ $type->id }}">{{ $type->type }}</option>
+                
+                @endforeach
+            </select>
             <input type="submit" class="btn btn-primary" value="Crea">
         </form>
     </div>
