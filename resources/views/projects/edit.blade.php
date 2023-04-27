@@ -27,6 +27,17 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            <div class="mb-3">
+                <label for="type" id="type" class="form-label">Tipo</label>
+                <select class="form-select" id="type" aria-label="Default select example" name="type_id">
+                    <option value="" selected>Segli il tipo</option>
+                    @foreach($types as $type)
+    
+                    <option @selected(old('type_id', $project->type_id) ==  $type->id) value="{{ $type->id }}">{{ $type->type }}</option>
+                    
+                    @endforeach
+                </select>
+            </div>
             <input type="submit" class="btn btn-primary ms-auto" value="Modifica">
         </form>
     </div>

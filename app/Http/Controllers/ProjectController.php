@@ -48,16 +48,21 @@ class ProjectController extends Controller
             'title' => 'required|max:255|min:2',
             'client' => 'required|string|min:2',
             'description' => 'required',
+            'type_id' => 'nullable|exists:types,id',
         ]);
 
         $data['slug'] = Str::slug($data['title']);
 
-        $new_project = new Project;
+        $new_project = Project::create($data);
+
+        /*$new_project = new Project;
         $new_project->title = $data['title'];
         $new_project->client = $data['client'];
         $new_project->description = $data['description'];
+        $new_project->slug = $data['slug'];
+        $new_project->type_id = $data['type_id'];
 
-        $new_project->save();
+        $new_project->save();*/
 
         return to_route('projects.show', $new_project);
     }
@@ -81,7 +86,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('projects.edit', compact('project'));
+        $types = Type::orderBy('type', 'asc')->get();
+        return view('projects.edit', compact('project','types'));
     }
 
     /**
@@ -97,13 +103,20 @@ class ProjectController extends Controller
             'title' => 'required|max:255|min:2',
             'client' => 'required|string|min:2',
             'description' => 'required',
+            'type_id' => 'nullable|exists:types,id',
         ]);
 
-        $project->title = $data['title'];
+        if ($data['title'] !== $project->title) {
+            $data['slug'] = Str::slug($data['title']);
+        }
+
+        $project->update($data);
+
+        /*$project->title = $data['title'];
         $project->client = $data['client'];
         $project->description = $data['description'];
 
-        $project->save();
+        $project->save();*/
 
         return to_route('projects.show', $project);
     }

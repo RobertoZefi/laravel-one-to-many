@@ -26,14 +26,17 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            <select class="form-select mb-3" aria-label="Default select example" name="type">
-                <option value="" selected>Segli il tipo</option>
-                @foreach($types as $type)
-
-                <option value="{{ $type->id }}">{{ $type->type }}</option>
-                
-                @endforeach
-            </select>
+            <div class="mb-3">
+                <label for="type" id="type" class="form-label">Tipo</label>
+                <select class="form-select" id="type" aria-label="Default select example" name="type_id">
+                    <option value="" selected>Segli il tipo</option>
+                    @foreach($types as $type)
+    
+                    <option @selected(old('type_id') ==  $type->id) value="{{ $type->id }}">{{ $type->type }}</option>
+                    
+                    @endforeach
+                </select>
+            </div>
             <input type="submit" class="btn btn-primary" value="Crea">
         </form>
     </div>
